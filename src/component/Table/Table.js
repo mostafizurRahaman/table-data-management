@@ -15,8 +15,8 @@ const Table = ({
    const tableHeader = tableData[0];
 
    return (
-      <div>
-         <table className=" border  border-1 border-black w-full">
+      <div className="overflow-x-auto">
+         <table className=" border  border-1 border-black md:w-full  overflow-x-auto">
             <thead className="font-semibold text-sm capitalize ">
                <tr className="border border-1 border-black ">
                   {tableHeader.person && (
@@ -96,8 +96,8 @@ const Table = ({
                </tr>
             </thead>
             <tbody>
-               {tableData.map((tableRow) => (
-                  <TableRow key={tableRow._id} tableRow={tableRow}></TableRow>
+               {tableData.map((tableRow, idx) => (
+                  <TableRow key={tableRow._id} idx={idx} tableRow={tableRow}></TableRow>
                ))}
             </tbody>
          </table>

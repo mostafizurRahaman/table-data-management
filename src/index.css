@@ -5,4 +5,5 @@
 
 body{
    font-family: "Noto Sans", sans-serif;
+   max-width: 100%;
 }
