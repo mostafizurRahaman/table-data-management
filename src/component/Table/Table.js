@@ -16,11 +16,11 @@ const Table = ({
 
    return (
       <div className="overflow-x-auto">
-         <table className=" border  border-1 border-black md:w-full  overflow-x-auto">
+         <table className=" border  border-1 border-black overflow-x-auto ">
             <thead className="font-semibold text-sm capitalize ">
                <tr className="border border-1 border-black ">
                   {tableHeader.person && (
-                     <th className=" p-2  border   border-black">
+                     <th className=" p-2  border   border-black w-[175px]">
                         <div className="flex items-center justify-start gap-2">
                            Name
                            {nameSort && (
@@ -35,7 +35,7 @@ const Table = ({
                      </th>
                   )}
                   {tableHeader.city && (
-                     <th className=" p-2   border   border-black ">
+                     <th className=" p-2   border   border-black  w-[175px]">
                         <div className="flex items-center justify-start gap-2">
                            City
                            {citySort && (
@@ -50,7 +50,7 @@ const Table = ({
                      </th>
                   )}
                   {tableHeader.email && (
-                      <th className=" p-2   border   border-black">
+                      <th className=" p-2   border   border-black w-[220px]">
                         <div className="flex items-center justify-start gap-2">
                           email Address  { emailSort && ( 
                            <TbArrowsSort
@@ -64,7 +64,7 @@ const Table = ({
                      </th>
                   )}
                   {tableHeader.joiningDate && (
-                      <th className=" p-2   border   border-black ">
+                      <th className=" p-2   border   border-black  w-[175px]">
                         <div className="flex items-center justify-start gap-2">
                            joining date
                            {joinDateSort && (
@@ -79,7 +79,7 @@ const Table = ({
                      </th>
                   )}
                   {tableHeader.role && (
-                      <th className=" p-2 ">
+                      <th className=" p-2 w-[175px]">
                         <div className='flex items-center justify-start gap-2'>
                            Role
                            {roleSort && (

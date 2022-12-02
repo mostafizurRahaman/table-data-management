@@ -2,8 +2,11 @@ import React from "react";
 
 const TableRow = ({tableRow, idx}) => {
    const { person, city, email, joiningDate, role } = tableRow;
+   const newDate = new Date(joiningDate); 
+
+   const date = newDate.toLocaleDateString(); 
    return (
-      <tr className={`font-normal  capitalize ${idx%2 === 0  ? ' bg-gray-200' : 'bg-white'}`}>
+      <tr className={`font-normal text-sm  capitalize ${idx%2 === 0  ? ' bg-gray-200' : 'bg-white'}`}>
          {person && (
             <td className="p-2  border  border-black  px-2 ">
                <div className="flex items-center justify-start gap-2">
@@ -20,7 +23,7 @@ const TableRow = ({tableRow, idx}) => {
          )}
          {joiningDate && (
             <td className="p-2  border  border-black  px-2">
-               {joiningDate}
+               {date}
             </td>
          )}
          {role && (

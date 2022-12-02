@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import Table from "./component/Table/Table";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "./component/Loader/Loading";
 function App() {
    //  state for first table :
    const [firstSortKey, setFirstSortkey] = useState("");
    const [firstSortOrder, setFirstSortOrder] = useState(false);
+   console.log("First", firstSortKey, firstSortOrder);
    // true ==  ascending , false == descending
    // state for second table:
    const [secondSortkey, setSecondSortkey] = useState("");
@@ -19,16 +21,18 @@ function App() {
    const [fourthSortOrder, setFourthSortOrder] = useState(false);
 
    // first table api call :
-   const { data: firstTableData = [], isLoading } = useQuery({
-      queryKey: ["firstTableData", firstSortKey, firstSortOrder],
-      queryFn: async () => {
-         const res = await fetch(
-            `http://localhost:5000/fourthTableData?key=${fourthSortKey}&order=${fourthSortOrder}`
-         );
-         const data = await res.json();
-         return data;
-      },
-   });
+   const { data: firstTableData = [], isLoading: firstTableLoading } = useQuery(
+      {
+         queryKey: ["firstTableData", firstSortKey, firstSortOrder],
+         queryFn: async () => {
+            const res = await fetch(
+               `https://table-managemnent-server.vercel.app/firstTableData?key=${firstSortKey}&order=${firstSortOrder}`
+            );
+            const data = await res.json();
+            return data;
+         },
+      }
+   );
 
    //second table api call :
    const { data: secondTableData = [], isLoading: secondTimeLoading } =
@@ -36,7 +40,7 @@ function App() {
          queryKey: ["secondTableData", secondSortkey, secondSortOrder],
          queryFn: async () => {
             const res = await fetch(
-               `http://localhost:5000/secondTableData?key=${secondSortkey}&order=${secondSortOrder}`
+               `https://table-managemnent-server.vercel.app/secondTableData?key=${secondSortkey}&order=${secondSortOrder}`
             );
             const data = await res.json();
             return data;
@@ -48,7 +52,7 @@ function App() {
       queryKey: ["thirdTableData", thirdSortKey, thirdSortOrder],
       queryFn: async () => {
          const res = await fetch(
-            `http://localhost:5000/thirdTableData?key=${thirdSortKey}&order=${thirdSortOrder}`
+            `https://table-managemnent-server.vercel.app/thirdTableData?key=${thirdSortKey}&order=${thirdSortOrder}`
          );
          const data = res.json();
          return data;
@@ -61,23 +65,23 @@ function App() {
          queryKey: ["fourthTableData", fourthSortOrder, fourthSortKey],
          queryFn: async () => {
             const res = await fetch(
-               `http://localhost:5000/fourthTableData?key=${fourthSortKey}&order=${fourthSortOrder}`
+               `https://table-managemnent-server.vercel.app/fourthTableData?key=${fourthSortKey}&order=${fourthSortOrder}`
             );
             const data = await res.json();
             return data;
          },
       });
    if (
-      isLoading ||
+      firstTableLoading ||
       secondTimeLoading ||
       thirdTableDataLoading ||
       fourthTableDataLoading
    ) {
-      return <h1>Loading.....................</h1>;
+      return <Loading></Loading>;
    }
 
    return (
-      <div className="max-w-[960px] box-border px-5 mx-auto py-20 ">
+      <div className="max-w-[960px] box-border px-5 mx-auto py-20  flex items-start gap-20 flex-col">
          {/* call table component for showing  first table data */}
          <div className="w-[920px] mx-auto">
             <Table
@@ -94,7 +98,7 @@ function App() {
          </div>
 
          {/* Second Table is started from here:  */}
-         <div className="w-[570px] overflow-x-auto">
+         <div className="w-[570px]">
             <Table
                tableData={secondTableData}
                sortOrder={secondSortOrder}
@@ -105,7 +109,7 @@ function App() {
          </div>
 
          {/* third table start from here:  */}
-         <div>
+         <div className="w-[570px]">
             <Table
                tableData={thirdTableData}
                sortOrder={thirdSortOrder}
@@ -117,7 +121,7 @@ function App() {
          </div>
 
          {/* Fouth table is start from here:  */}
-         <div>
+         <div className="w-[700px] ">
             <Table
                tableData={fourthTableData}
                sortOrder={fourthSortOrder}
